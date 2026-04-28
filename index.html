@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElevatorOps — Мониторинг лифтов</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="topbar">
+        <div class="brand">
+            <span class="logo">▲▼</span>
+            <span class="brand-name">ElevatorOps</span>
+        </div>
+        <nav class="nav">
+            <a href="#" class="nav-link active">Панель</a>
+            <a href="#" class="nav-link">События</a>
+            <a href="#" class="nav-link">Отчёты</a>
+            <a href="#" class="nav-link">Настройки</a>
+        </nav>
+        <div class="user">
+            <span class="status-dot online" title="Подключено"></span>
+            <span class="user-name">оператор</span>
+        </div>
+    </header>
+
+    <main class="layout">
+        <aside class="sidebar">
+            <h2 class="section-title">Параметры</h2>
+
+            <div class="form-group">
+                <label for="floors">Этажей в здании</label>
+                <input id="floors" type="number" value="9" min="2" max="20">
+            </div>
+
+            <div class="form-group">
+                <label for="capacity">Грузоподъёмность, кг</label>
+                <input id="capacity" type="number" value="400" min="100" step="50">
+            </div>
+
+            <div class="form-group">
+                <label for="speed">Время между этажами, с</label>
+                <input id="speed" type="number" value="5" min="1" max="20">
+            </div>
+
+            <div class="controls">
+                <button id="btn-start" class="btn btn-primary">Старт</button>
+                <button id="btn-stop" class="btn btn-secondary">Стоп</button>
+            </div>
+
+            <h2 class="section-title">Добавить пассажира</h2>
+            <div class="form-group">
+                <label for="p-weight">Вес, кг</label>
+                <input id="p-weight" type="number" value="75" min="20" max="200">
+            </div>
+            <div class="form-group form-row">
+                <div>
+                    <label for="p-from">С этажа</label>
+                    <input id="p-from" type="number" value="1" min="1">
+                </div>
+                <div>
+                    <label for="p-to">На этаж</label>
+                    <input id="p-to" type="number" value="5" min="1">
+                </div>
+            </div>
+            <button id="btn-add" class="btn btn-accent">Добавить</button>
+        </aside>
+
+        <section class="visual">
+            <div class="panel-header">
+                <h2>Визуализация шахты</h2>
+                <div class="indicators">
+                    <span id="indicator-direction" class="indicator">▬ ожидание</span>
+                    <span id="indicator-overload" class="indicator overload-off">Перегрузка</span>
+                    <span id="indicator-doors" class="indicator">Двери: закрыты</span>
+                </div>
+            </div>
+
+            <div id="shaft" class="shaft" aria-label="Схема шахты лифта">
+            </div>
+        </section>
+
+        <aside class="info">
+            <h2 class="section-title">Состояние</h2>
+            <ul class="kv">
+                <li><span>Этаж</span><b id="stat-floor">—</b></li>
+                <li><span>Направление</span><b id="stat-dir">стоит</b></li>
+                <li><span>Вес в кабине</span><b id="stat-weight">0 кг</b></li>
+                <li><span>Пассажиров в кабине</span><b id="stat-incabin">0</b></li>
+                <li><span>В очереди</span><b id="stat-queue">0</b></li>
+            </ul>
+
+            <h2 class="section-title">Статистика сеанса</h2>
+            <ul class="kv">
+                <li><span>Поездок</span><b id="stat-trips">0</b></li>
+                <li><span>Холостых поездок</span><b id="stat-empty">0</b></li>
+                <li><span>Перевезённый вес</span><b id="stat-totalweight">0 кг</b></li>
+                <li><span>Создано пассажиров</span><b id="stat-totalp">0</b></li>
+            </ul>
+
+            <h2 class="section-title">Журнал событий</h2>
+            <div id="log" class="log"></div>
+        </aside>
+    </main>
+
+    <footer class="statusbar">
+        <span>Лифтов в движении: <b id="sb-moving">0</b></span>
+        <span>Остановлено: <b id="sb-stopped">1</b></span>
+        <span>Перевезено пассажиров: <b id="sb-delivered">0</b></span>
+        <span class="spacer"></span>
+        <span>ElevatorOps</span>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
